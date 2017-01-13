@@ -1,0 +1,21 @@
+{
+  "name": "fixframework/fixframework",
+  "type": "project",
+  "description": "Fix Framework",
+  "keywords": ["fix","framework"],
+  "homepage": "https://github.com/FixFramework",
+  "license": "MIT",
+  "authors":
+  [
+    {
+      "name": "Cengiz Akcan",
+      "email": "info@cengizakcan.com",
+      "homepage": "http://www.cengizakcan.com",
+      "role": "Core Developer"
+    }
+  ],
+  "require":
+  {
+    "php": ">=7.0.0"
+  }
+}
