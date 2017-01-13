@@ -69,7 +69,7 @@ class Pdo
      */
     public function insert($columname = null){
 
-        self::$_query = "INSERET INTO".FIX_EOL.$columname;
+        self::$_query = "INSERT INTO".FIX_EOL.$columname;
         return $this;
 
     }
