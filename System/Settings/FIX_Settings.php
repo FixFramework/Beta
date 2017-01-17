@@ -10,13 +10,12 @@ class FIX_Settings
     * */
     public static  $applications  =
     [
-        "nesilkod.com" =>
+        "work.fixframework.com" =>
             [
                 "controller"    =>  "home",
                 "function"      =>  "index",
                 "arguments"     =>  [],
-                "errorpage"     => 	"/",
-                "reporting"     => 	false,
+                "errorpage"     =>  "/",
                 "geturl"        =>  "url",
                 "getmethod"     =>  "get",
                 "dbdrive"       =>

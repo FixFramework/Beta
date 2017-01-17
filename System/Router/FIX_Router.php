@@ -150,20 +150,6 @@ class FIX_Router
 
     }
 
-    public static function getclass($class = null,$Write = null){
-
-            if(is_file(FIX_HOME_DIR."/".FIX_NORMAL_CORE_DIR.$class.".php")){
-
-                include(FIX_HOME_DIR."/".FIX_NORMAL_CORE_DIR.$class.".php");
-
-                if(class_exists($class)){
-
-                    return new $class($Write);
-
-                }else{  echo FIX_Error::fix()->SystemGetModelError()->Run(); }
-
-            }else{ echo FIX_Error::fix()->SystemGetModelIncludeError()->Run(); }
-    }
 
     /*
      * System Run

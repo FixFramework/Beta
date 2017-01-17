@@ -2,7 +2,7 @@
 
 namespace System\Core;
 
-class Iletimerkezi
+class Sms
 {
 
 

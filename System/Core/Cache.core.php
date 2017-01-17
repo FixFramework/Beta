@@ -26,7 +26,7 @@ class Cache
      *
      * @var array
      */
-    protected static $cache = FIX_CACHE_URL;
+    protected static $cache;
     /**
      * Cancel saving output to cache
      */
@@ -116,7 +116,7 @@ class Cache
         // cache path not defined
         if (!isset(self::$cache['path'])) {
             // redefine cache path to default path
-            self::setCachePath($_SERVER['DOCUMENT_ROOT'] . '/cache/');
+            self::setCachePath(FIX_CACHE_URL);
         }
         return self::$cache['path'];
     }

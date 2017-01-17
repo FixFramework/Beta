@@ -41,6 +41,9 @@
     /* System application Controller Dir */
     define("FIX_APP_CONTROLLER_DIR","controllers/");
 
+    /* System application model Dir */
+    define("FIX_APP_models_DIR","models/");
+
     /* System Core Normal Dir */
     define("FIX_NORMAL_CORE_DIR","System/Core/Class/");
 
