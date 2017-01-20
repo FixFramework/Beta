@@ -2,7 +2,6 @@
 
 namespace System\Core\Json;
 
-
 use System\Error\FIX_Error;
 
 class Json
@@ -77,7 +76,6 @@ class Json
         if ($error !== '') {
 
             if($Type){ exit(FIX_Error::fix()->SystemApplicaionsConfigFileError($error)->Run()); }else{ exit($error); }
-
 
         }
 
