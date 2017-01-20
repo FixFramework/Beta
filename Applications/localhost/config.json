@@ -1,0 +1,23 @@
+{
+  "controller": "home",
+  "function": "index",
+  "arguments": [],
+  "error": "/",
+  "receiver": "url",
+  "method": "get",
+  "database": {
+    "pdo": {
+      "host"    : "localhost",
+      "username": "",
+      "password": "",
+      "table"   : "",
+      "charset" : "utf8"
+    }
+  },
+  "maintenance_mode": [],
+  "maintenance_mode_url": [],
+  "forbidden": [],
+  "forbidden_mode_url": []
+
+
+}
