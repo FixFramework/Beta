@@ -1,0 +1,26 @@
+<?php
+
+use System\Fix\Fix;
+
+class Class_Name
+{
+
+    public function Function_Name(){
+
+        /*
+         *
+         * Welcome Fix Framework
+         *
+         * Write For Yourself
+         *
+         * Code Love
+         *
+         * Code Life
+         *
+         * */
+        echo Fix::show();
+
+    }
+
+
+}
