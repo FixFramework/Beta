@@ -2,6 +2,7 @@
 
 namespace System\Core\Model;
 
+use System\Error\FIX_Error;
 
 class Model
 {
@@ -22,7 +23,7 @@ class Model
 
             return new $Model();
 
-        }else { return false; }
+        }else { die(FIX_Error::fix()->SystemModelExtensionError($Application. " Non Application Or Model")->Run()); }
 
     }
 

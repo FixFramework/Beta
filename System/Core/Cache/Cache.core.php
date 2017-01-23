@@ -12,7 +12,7 @@ class Cache
     // cache debug
     const CACHE_DEBUG = false;
     // cache file extension
-    const CACHE_EXTENSION = '.php';
+    const CACHE_EXTENSION = '.cache';
     // cache security key
     const CACHE_SECURITY = 'd15sdf8szefs698df15sd7';
     // cache will be kept so long (in seconds)

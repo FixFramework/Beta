@@ -49,7 +49,7 @@ class Backupdb
      * @ Params
      * Mysql Db Save File Folder
      * */
-    public $File = "/app/storage/";
+    public $File = FIX_HOME_DIR.FIX_APP_DIR.FIX_URL.FIX_SLASH."storage/";
 
     /*
      *
@@ -133,9 +133,9 @@ class Backupdb
      * @Param Save Sql Data File
      *
      * */
-    public function file($par  = "/app/storage/"){
+    public function file($par  = ""){
 
-        $this->File = $par;
+        $this->File .= $par;
         return $this;
 
     }

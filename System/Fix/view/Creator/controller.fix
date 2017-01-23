@@ -1,20 +1,32 @@
 <?php
 
+
+/*
+*	Adding Library
+*/
 use System\Fix\Fix;
 
+
+/*
+*	Start Class_Name Master Controller 
+*/
 class Class_Name
 {
+
+	public function Class_Name(){
+
+      // This is function __construct();
+
+	}
+
 
     public function Function_Name(){
 
         /*
          *
          * Welcome Fix Framework
-         *
          * Write For Yourself
-         *
          * Code Love
-         *
          * Code Life
          *
          * */

@@ -93,7 +93,6 @@ class Benchmark {
             }
         }
 
-
         $return .= str_pad("-", 38, "-") . "\n" . str_pad("Total time:", 25) . " : " . $total ." sec.</pre>";
         if ($echo) echo $return;
         return $return;

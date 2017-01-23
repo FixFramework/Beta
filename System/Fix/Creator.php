@@ -5,6 +5,7 @@ namespace System\Fix;
 
 
 use System\Core\Json\Json;
+use System\Error\FIX_Error;
 
 class Creator
 {
@@ -21,7 +22,15 @@ class Creator
 
        }else{
 
-           View::render("Creator/Index");
+           if(FIX_CREATOR_IP === $_SERVER["REMOTE_ADDR"]){
+
+               View::render("Creator/Index");
+
+           }else{
+
+               echo FIX_Error::fix()->SystemKernelReportingErrorMessageToDomain()->Run();
+
+           }
 
        }
 

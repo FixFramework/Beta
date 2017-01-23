@@ -10,11 +10,17 @@
     /* System Is Windows */
     define('FIX_WIN', strpos(PHP_OS, 'WIN') !== false);
 
+    /* System Version */
+    define("FIX_VERSION","Fix Framework - Beta");
+
     /* System Director */
     define("FIX_SP",DIRECTORY_SEPARATOR);
 
     /* System Application Creator true | false */
     define("FIX_CREATOR",true);
+
+    /* System Application Creator Access IP */
+    define("FIX_CREATOR_IP","::1");
 
     /* System Application Dir */
     define("FIX_HOME_DIR",$_SERVER['DOCUMENT_ROOT']);

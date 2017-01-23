@@ -246,6 +246,26 @@ class FIX_Error
     }
 
     /**
+     * @param null $Mesaage
+     * @return $this
+     */
+    public function SystemModelExtensionError($Mesaage = null){
+
+        $this->SystemReportigTemplate(
+            [
+                "System Application Model Library Error",
+                "Contact to Developer",
+                "000",
+                FIX_URL,
+                $Mesaage
+            ]
+        );
+        return $this;
+
+
+    }
+
+    /**
      * @return $this
      */
     public function System(){
