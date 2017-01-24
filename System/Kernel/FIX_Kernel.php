@@ -21,8 +21,11 @@ class FIX_Kernel
                         include( FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL . FIX_SLASH . FIX_APP_CONTROLLER_DIR . Router::kernelcontroller() . FIX_CORE_EXTENSIONS );
 
 
+
                         $Start          = Router::kernelcontroller();
                         $Controller     = new $Start();
+
+                        define("APP_ERROR",Router::getConfig()["error"]);
 
                         if(method_exists($Controller,Router::kernelfunction())){
 
@@ -30,7 +33,7 @@ class FIX_Kernel
 
                         }else{  if(method_exists($Controller,Router::getConfig()["function"])){ call_user_func_array([$Controller, Router::getConfig()["function"]],Router::kernelparams(0)); }else{ echo Error::fix()->SystemApplicationControllerInFunctionNotFound()->Run(); } }
 
-                    }else{  if( !file_exists(FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL . FIX_SLASH . FIX_APP_CONTROLLER_DIR . Router::getConfig()["controller"] . FIX_CORE_EXTENSIONS) )  {  echo Error::fix()->SystemApplicationDefaultNotFoundController()->Run(); }else{ Header::location(Router::getConfig()["error"]); } }
+                    }else{if( !file_exists(FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL . FIX_SLASH . FIX_APP_CONTROLLER_DIR . Router::getConfig()["controller"] . FIX_CORE_EXTENSIONS) )  {echo Error::fix()->SystemApplicationDefaultNotFoundController()->Run();}else{ Header::location(APP_ERROR);  }}
 
             }else{ echo Error::fix()->SystemKernelReportingErrorMessageToDomainConfig()->Run(); }
 

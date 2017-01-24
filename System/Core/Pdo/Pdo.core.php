@@ -3,6 +3,7 @@
 namespace System\Core\Pdo;
 
 
+use System\Error\FIX_Error;
 use System\Router\FIX_Router as Router;
 
 class Pdo
@@ -34,11 +35,21 @@ class Pdo
      */
     public function connect(){
 
-        $PDO = new \PDO('mysql:host=' . Router::getConfig()["database"]["pdo"]["host"] . ';dbname=' . Router::getConfig()["database"]["pdo"]["table"], Router::getConfig()["database"]["pdo"]["username"], Router::getConfig()["database"]["pdo"]["password"]);
-        $PDO->query('SET CHARACTER SET ' . Router::getConfig()["database"]["pdo"]["charset"]);
-        $PDO->query('SET NAMES ' . Router::getConfig()["database"]["pdo"]["charset"]);
+        try {
 
-        return $PDO;
+            $Data       = (array) Router::getConfig()["database"];
+            $DataBase   = (array) $Data["pdo"];
+            $PDO        = new \PDO('mysql:host=' . $DataBase["host"] . ';dbname=' . $DataBase["table"], $DataBase["username"], $DataBase["password"]);
+            $PDO->query('SET CHARACTER SET ' . $DataBase["charset"]);
+            $PDO->query('SET NAMES ' . $DataBase["charset"]);
+
+            return $PDO;
+
+        } catch ( \PDOException $e ){
+
+            exit(FIX_Error::fix()->SystemPdoModelError($e->getMessage())->Run());
+
+        }
 
     }
 
@@ -94,34 +105,53 @@ class Pdo
 
 
     /**
+     * @param string $query
+     * @param array $data
+     * @return $this
+     */
+    public function manuel($query = "", array $data = []){
+
+        self::$_query = $query;
+        self::$_setdata = $data;
+        return $this;
+
+    }
+
+
+    /**
      * @param array|null $colm
      * @param array|null $data
      * @param string $bracket
      * @return $this
      */
-    public function set(array $colm = null, array $data = null,$bracket = ","){
+    public function  set(array $colm = null, array $data = null,$bracket = ","){
 
+        if(is_array($colm) && is_array($data) && count($colm) >= count($data)){
 
-        $count = 0;
-        self::$_query .= FIX_EOL."SET".FIX_EOL;
-        foreach($colm as $col){
+            self::$_query .= FIX_EOL."SET".FIX_EOL;
 
-            $count = $count+1;
-            if(count($colm) === $count){
+            $count = 0;
 
-                self::$_query .= FIX_EOL.$col."=?".FIX_EOL;
+            foreach($colm as $col){
 
-            }else{
+                $count = $count+1;
+                if(count($colm) === $count){
 
-                self::$_query .= FIX_EOL.$col."=?".$bracket.FIX_EOL;
+                    self::$_query .= FIX_EOL.$col."=?".FIX_EOL;
+
+                }else{
+
+                    self::$_query .= FIX_EOL.$col."=?".FIX_EOL.$bracket.FIX_EOL;
+
+                }
 
             }
 
+            self::$_setdata = $data;
+
+            return $this;
+
         }
-
-        self::$_setdata = $data;
-
-        return $this;
 
     }
 
@@ -148,7 +178,7 @@ class Pdo
 
                 }else{
 
-                    self::$_query .= FIX_EOL.$col."=".FIX_EOL.$bracket.FIX_EOL;
+                    self::$_query .= FIX_EOL.$col."=?".FIX_EOL.$bracket.FIX_EOL;
 
                 }
 
@@ -171,6 +201,7 @@ class Pdo
 
         self::$_query .= "ORDER BY ".FIX_EOL.$columname.FIX_EOL.$sort;
         return $this;
+
 
     }
 
@@ -197,8 +228,10 @@ class Pdo
 
     }
 
+    /**
+     * @return array
+     */
     public function exportsql(){
-
 
         return [
             "query"    => self::$_query,
@@ -214,32 +247,42 @@ class Pdo
      */
     public function run($single  = false){
 
-            $array1 = [];
-            $array2 = [];
+        $array1 = [];
+        $array2 = [];
 
-            if(is_array(self::$_setdata)){
+        if(is_array(self::$_setdata)){
 
-                $array1 = self::$_setdata;
+            $array1 = self::$_setdata;
+        }
+
+        if(is_array(self::$_wheredata)){
+
+            $array2 = self::$_wheredata;
+        }
+
+        if(self::$_query !== ""){
+
+            $sql = $this->connect()->prepare(self::$_query);
+
+            if( count(self::$_setdata) > 0 ){
+
+                $sql->execute(self::$_setdata);
+
             }
-            if(is_array(self::$_wheredata)){
-
-                $array2 = self::$_wheredata;
-            }
-
-                $sql = $this->connect()->prepare(self::$_query);
-
-                $sql->execute(array_merge($array1,$array2));
 
             if($single){
 
-                return $sql->fetch(\PDO::FETCH_ASSOC);
+                $sql->fetch(\PDO::FETCH_ASSOC);
 
             }else{
 
-                return $sql->fetchAll(\PDO::FETCH_ASSOC);
+                $sql->fetchAll(\PDO::FETCH_ASSOC);
 
             }
 
+            return $sql;
+
+        }
 
     }
 
