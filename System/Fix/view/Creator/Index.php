@@ -18,6 +18,11 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <!-- This is what you need -->
+    <script src="http://cdn.fixframework.com/sweet-alert/sweetalert-dev.js"></script>
+    <link rel="stylesheet" href="http://cdn.fixframework.com/sweet-alert/sweetalert.css">
+    <!--.......................-->
+
     <script>
         $(document).ready(function() {
 
@@ -45,41 +50,52 @@
             * Creator Form Submit Process
             * */
             $(".creatorform").submit(function(){
-                $(".logwrite").html("");
-                $('#modal1').modal('open');
-                $(".requestmodel").show();
 
-                var form = $(this).serialize();
+                var controller   = $("input[name=controller]").val();
+                var functions     = $("input[name=function]").val();
 
-                $.ajax({
-                    type: "post",
-                    url: '?process',
-                    data: form,
-                    dataType: "json",
-                    success: function(data) {
+                if(controller === functions){
 
-                            $.each(data, function( index, value ) {
+                    swal("WARNING","controller same as name function","warning");
 
-                                $(".logwrite").append("<a class='collection-item'>"+value+"</a>");
+                }else {
+
+
+                    $(".logwrite").html("");
+                    $('#modal1').modal('open');
+                    $(".requestmodel").show();
+
+                    var form = $(this).serialize();
+
+                    $.ajax({
+                        type: "post",
+                        url: '?process',
+                        data: form,
+                        dataType: "json",
+                        success: function (data) {
+
+                            $.each(data, function (index, value) {
+
+                                $(".logwrite").append("<a class='collection-item'>" + value + "</a>");
 
                             });
 
                             $(".requestmodel").hide();
 
-                    },
-                    complete: function(){
+                        },
+                        complete: function () {
 
-                        $(".requestmodel").hide();
-                        $(".homelog").fadeIn();
+                            $(".requestmodel").hide();
+                            $(".homelog").fadeIn();
 
-                    },
-                    statusCode: {
-                        404: function() {
-                            alert("hata");
+                        },
+                        statusCode: {
+                            404: function () {
+                                alert("hata");
+                            }
                         }
-                    }
-                });
-
+                    });
+                }
 
             });
 
@@ -123,11 +139,11 @@
             <a><span class="white-text name">Fix Framework</span></a>
             <a><span class="white-text email">info@fixframework.com</span></a>
         </div></li>
-    <li><a href="http://fixframework.com//documentation.html"><i class="fa fa-book" aria-hidden="true"></i>Documentation</a></li>
+    <li><a href="http://docs.fixframework.com"><i class="fa fa-book" aria-hidden="true"></i>Documentation</a></li>
     <li><a href="https://github.com/FixFramework"><i class="fa fa-github" aria-hidden="true"></i>Github</a></li>
-    <li><a href="http://fixframework.com//team.html"><i class="fa fa-users" aria-hidden="true"></i>Team</a></li>
-    <li><a href="http://fixframework.com//about.html"><i class="fa fa-question-circle" aria-hidden="true"></i>About us</a></li>
-    <li><a href="http://fixframework.com//contact.html"><i class="fa fa-paper-plane" aria-hidden="true"></i>Contact</a></li>
+    <li><a href="http://fixframework.com/team.html"><i class="fa fa-users" aria-hidden="true"></i>Team</a></li>
+    <li><a href="http://fixframework.com/about.html"><i class="fa fa-question-circle" aria-hidden="true"></i>About us</a></li>
+    <li><a href="http://fixframework.com/contact.html"><i class="fa fa-paper-plane" aria-hidden="true"></i>Contact</a></li>
 
 </ul>
 <div class="container">
@@ -203,6 +219,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
     <div class="modal-content">
@@ -222,9 +239,7 @@
         <div class="input-field col s12 orta homelog ">
             <span class="waves-effect waves-light btn" onclick="location.href = '/'" >GO TO HOME</span>
         </div>
-
     </div>
-
 </div>
 
 </body>

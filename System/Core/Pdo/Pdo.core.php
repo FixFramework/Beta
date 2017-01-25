@@ -18,6 +18,8 @@ class Pdo
     public static $_multiple;
     public static $_setdata;
     public static $_wheredata;
+    public static $_indata;
+
 
 
 
@@ -45,11 +47,7 @@ class Pdo
 
             return $PDO;
 
-        } catch ( \PDOException $e ){
-
-            exit(FIX_Error::fix()->SystemPdoModelError($e->getMessage())->Run());
-
-        }
+        } catch ( \PDOException $e ){ die(FIX_Error::fix()->SystemErrorMessage($e->getMessage())->Run()); }
 
     }
 
@@ -111,9 +109,7 @@ class Pdo
      */
     public function manuel($query = "", array $data = []){
 
-        self::$_query = $query;
-        self::$_setdata = $data;
-        return $this;
+        return $this->connect();
 
     }
 
@@ -127,6 +123,10 @@ class Pdo
     public function  set(array $colm = null, array $data = null,$bracket = ","){
 
         if(is_array($colm) && is_array($data) && count($colm) >= count($data)){
+
+
+            if(count($colm) === count($data)){
+
 
             self::$_query .= FIX_EOL."SET".FIX_EOL;
 
@@ -151,7 +151,10 @@ class Pdo
 
             return $this;
 
-        }
+            }else{ die(FIX_Error::fix()->SystemErrorMessage(["Pdo Library ( Set ) Data and colm are not equal"])->run()); }
+
+        }{ die(FIX_Error::fix()->SystemErrorMessage(["Pdo Library ( Set ) Data and colm are not array"])->run()); }
+
 
     }
 
@@ -163,32 +166,61 @@ class Pdo
      */
     public function  where(array $colm = null, array $data = null,$bracket = "AND"){
 
+
         if(is_array($colm) && is_array($data) && count($colm) >= count($data)){
 
-            self::$_query .= FIX_EOL."where".FIX_EOL;
 
-            $count = 0;
+            if(count($colm) === count($data)){
 
-            foreach($colm as $col){
+                self::$_query .= FIX_EOL."where".FIX_EOL;
 
-                $count = $count+1;
-                if(count($colm) === $count){
+                $count = 0;
 
-                    self::$_query .= FIX_EOL.$col."=?".FIX_EOL;
+                foreach($colm as $col){
 
-                }else{
+                    $count = $count+1;
+                    if(count($colm) === $count){
 
-                    self::$_query .= FIX_EOL.$col."=?".FIX_EOL.$bracket.FIX_EOL;
+                        self::$_query .= FIX_EOL.$col."=?".FIX_EOL;
+
+                    }else{
+
+                        self::$_query .= FIX_EOL.$col."=?".FIX_EOL.$bracket.FIX_EOL;
+
+                    }
 
                 }
 
-            }
+                self::$_wheredata = $data;
 
-            self::$_wheredata = $data;
+                return $this;
+            }else{ die(FIX_Error::fix()->SystemErrorMessage(["Pdo Library ( where ) Data and colm are not equal"])->run()); }
 
-            return $this;
+        }{ die(FIX_Error::fix()->SystemErrorMessage(["Pdo Library ( where ) Data and colm are not array"])->run()); }
 
-        }
+    }
+
+
+    /**
+     * @param array|null $colm
+     * @param array|null $data
+     * @param string $bracket
+     * @return $this
+     */
+    public function  in($colm = null, array $data = null,$bracket = ","){
+
+
+        if( is_array($data)){
+
+
+                $in  = str_repeat('?,', count($data) - 1) . '?';
+                self::$_query .= FIX_EOL.$colm.FIX_EOL."IN (".$in.")".FIX_EOL;
+                self::$_indata = $data;
+
+                return $this;
+
+
+        }{ die(FIX_Error::fix()->SystemErrorMessage(["Pdo Library ( where ) Data and colm are not array"])->run()); }
 
     }
 
@@ -199,7 +231,7 @@ class Pdo
      */
     public function orderby($columname = null, $sort = "ASC"){
 
-        self::$_query .= "ORDER BY ".FIX_EOL.$columname.FIX_EOL.$sort;
+        self::$_query .= "ORDER BY".FIX_EOL.$columname.FIX_EOL.$sort;
         return $this;
 
 
@@ -223,7 +255,15 @@ class Pdo
      */
     public function limit($start = null,$finish = null){
 
-        self::$_query .= FIX_EOL."LIMIT".FIX_EOL.$start.",".$finish;
+        self::$_query .= FIX_EOL."LIMIT".FIX_EOL.$start.",".$finish.FIX_EOL;
+        return $this;
+
+    }
+
+
+    public function ands($start = ","){
+
+        self::$_query .= FIX_EOL.$start.FIX_EOL;
         return $this;
 
     }
@@ -236,10 +276,12 @@ class Pdo
         return [
             "query"    => self::$_query,
             "where"    => self::$_wheredata,
-            "set"      => self::$_setdata
+            "set"      => self::$_setdata,
+            "in"       => self::$_indata
         ];
 
     }
+
 
     /**
      * @param bool|false $single
@@ -249,6 +291,7 @@ class Pdo
 
         $array1 = [];
         $array2 = [];
+        $array3 = [];
 
         if(is_array(self::$_setdata)){
 
@@ -260,27 +303,41 @@ class Pdo
             $array2 = self::$_wheredata;
         }
 
+        if(is_array(self::$_indata)){
+
+            $array3 = self::$_indata;
+        }
+
         if(self::$_query !== ""){
 
-            $sql = $this->connect()->prepare(self::$_query);
 
-            if( count(self::$_setdata) > 0 ){
+            if(is_array(self::$_wheredata) or is_array(self::$_setdata)){
 
-                $sql->execute(self::$_setdata);
+                $sql = $this->connect()->prepare(self::$_query);
+
+            }else{
+
+                $sql = $this->connect()->query(self::$_query);
+            }
+
+
+            if( count(array_merge($array1,$array2,$array3)) > 0 ){
+
+                $sql->execute(array_merge($array1,array_merge($array2,$array3)));
 
             }
 
             if($single){
 
-                $sql->fetch(\PDO::FETCH_ASSOC);
+                $Export = $sql->fetch(\PDO::FETCH_ASSOC);
 
             }else{
 
-                $sql->fetchAll(\PDO::FETCH_ASSOC);
+                $Export = $sql->fetchAll(\PDO::FETCH_ASSOC);
 
             }
 
-            return $sql;
+            return $Export;
 
         }
 

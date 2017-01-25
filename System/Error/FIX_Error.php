@@ -249,6 +249,26 @@ class FIX_Error
      * @param null $Mesaage
      * @return $this
      */
+    public function SystemErrorMessage($Mesaage = null){
+
+        $this->SystemReportigTemplate(
+            [
+                "System Application Error",
+                "Contact to Developer",
+                "009",
+                FIX_URL,
+                $Mesaage
+            ]
+        );
+        return $this;
+
+
+    }
+
+    /**
+     * @param null $Mesaage
+     * @return $this
+     */
     public function SystemModelExtensionError($Mesaage = null){
 
         $this->SystemReportigTemplate(
