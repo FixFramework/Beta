@@ -1,7 +1,16 @@
 <?php
+/*
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
 
 namespace System\Core\Cache;
 
+use System\Router\FIX_Router;
 
 class Cache
 {
@@ -116,7 +125,7 @@ class Cache
         // cache path not defined
         if (!isset(self::$cache['path'])) {
             // redefine cache path to default path
-            self::setCachePath(FIX_CACHE_URL);
+            self::setCachePath(FIX_Router::appDedection().FIX_CACHE_URL);
         }
         return self::$cache['path'];
     }

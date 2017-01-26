@@ -1,72 +1,62 @@
 <?php
-
+/*
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
 namespace System\Kernel;
 
-use System\Core\Header\Header   as Header;
-use System\Error\FIX_Error      as Error;
+use System\Error\FIX_Error;
 use System\Fix\Fix;
-use System\Router\FIX_Router    as Router;
+use System\Router\FIX_Router;
 
 class FIX_Kernel
 {
 
-    public  $__errorPage;
-
-
     public function __construct(){
 
-        $this->__errorPage = Router::getConfig()["error"];
+        if( FIX_Router::detectionurl() ){
 
+            if( FIX_Router::detectionurlconfig() ){
 
-        if( Router::detectionurl() ){
+                FIX_Router::run();
 
-            if( Router::detectionurlconfig() ){
+                    if( file_exists( FIX_Router::appDedection() . FIX_SLASH . FIX_APP_CONTROLLER_DIR . FIX_Router::kernelcontroller() . FIX_CORE_EXTENSIONS ) ){
 
-                Router::run();
+                        include( FIX_Router::appDedection() . FIX_SLASH . FIX_APP_CONTROLLER_DIR . FIX_Router::kernelcontroller() . FIX_CORE_EXTENSIONS );
 
-                    if( file_exists( FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL . FIX_SLASH . FIX_APP_CONTROLLER_DIR . Router::kernelcontroller() . FIX_CORE_EXTENSIONS ) ){
-
-                        include( FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL . FIX_SLASH . FIX_APP_CONTROLLER_DIR . Router::kernelcontroller() . FIX_CORE_EXTENSIONS );
-
-
-
-                        $Start          = Router::kernelcontroller();
+                        $Start          = FIX_Router::kernelcontroller();
                         $Controller     = new $Start();
 
+                        if(method_exists($Controller,FIX_Router::kernelfunction())){
 
-
-                        if(method_exists($Controller,Router::kernelfunction())){
-
-                            call_user_func_array([$Controller, Router::kernelfunction()],Router::kernelparams(1));
+                            call_user_func_array([$Controller, FIX_Router::kernelfunction()],FIX_Router::kernelparams(1));
 
                         }else{
 
+                            if(method_exists($Controller,FIX_Router::getConfig()["function"])){
 
-                            if(method_exists($Controller,Router::getConfig()["function"])){
+                                call_user_func_array([$Controller, FIX_Router::getConfig()["function"]],FIX_Router::kernelparams(0));
 
-                                call_user_func_array([$Controller, Router::getConfig()["function"]],Router::kernelparams(0));
-
-                            }else{
-
-                                echo Error::fix()->SystemApplicationControllerInFunctionNotFound()->Run();
-
-                            }
-
+                            } else{ die(FIX_Error::fix()->SystemApplicationControllerInFunctionNotFound()->Run()); }
                         }
 
                     }else{
 
-                        if( !file_exists(FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL . FIX_SLASH . FIX_APP_CONTROLLER_DIR . Router::getConfig()["controller"] . FIX_CORE_EXTENSIONS) )  {
+                        if( !file_exists(FIX_Router::appDedection() . FIX_SLASH . FIX_APP_CONTROLLER_DIR . FIX_Router::getConfig()["controller"] . FIX_CORE_EXTENSIONS) )  {
 
-                            echo Error::fix()->SystemApplicationDefaultNotFoundController()->Run();
-                        }
-                        else { Fix::htmlheader(Router::getConfig()["error"],0); }
+                            die(FIX_Error::fix()->SystemApplicationDefaultNotFoundController()->Run());
+
+                        }  else { Fix::htmlheader(FIX_Router::getConfig()["error"],0); }
 
                     }
 
-            }else{ echo Error::fix()->SystemKernelReportingErrorMessageToDomainConfig()->Run(); }
+            }else{ die(FIX_Error::fix()->SystemKernelReportingErrorMessageToDomainConfig()->Run()); }
 
-        }else{ Router::Creator(); }
+        }else{ FIX_Router::Creator(); }
 
     }
 

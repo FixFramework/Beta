@@ -1,15 +1,15 @@
 <?php
-
-
 /*
-*	Adding Library
-*/
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
+
 use System\Fix\Fix;
 
-
-/*
-*	Start Class_Name Master Controller 
-*/
 class Class_Name
 {
 
@@ -22,14 +22,6 @@ class Class_Name
 
     public function Function_Name(){
 
-        /*
-         *
-         * Welcome Fix Framework
-         * Write For Yourself
-         * Code Love
-         * Code Life
-         *
-         * */
         echo Fix::show();
 
     }

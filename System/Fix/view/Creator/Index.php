@@ -1,3 +1,13 @@
+<!--
+/*
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,7 +168,7 @@
                     <div class="row">
 
                         <div class="input-field col s12">
-                            <input id="app" name="app" readonly value="<?php echo FIX_URL; ?>" type="text"  class="validate" required="" aria-required="true" >
+                            <input id="app" name="app" readonly value="<?php echo System\Router\FIX_Router::appDedection(true); ?>" type="text"  class="validate" required="" aria-required="true" >
                             <label for="app">APPLICATION</label>
                         </div>
                         <div class="input-field col s6">

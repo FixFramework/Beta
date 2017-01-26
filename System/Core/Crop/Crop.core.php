@@ -1,26 +1,12 @@
 <?php
 /*
-*   Proje : Fix Cms
-*   Autor : Cengiz Akcan
-*   Time  : 13.08.2015 13:44:10
-*
-*   KULLANIM
-*
-		$this->plugin("image/crop");
-
-		$resim = new crop;
-
-		$resim->image("app/storage/deneme.jpg") // resim adresi
-			->targetw(uzunluk)
-			->targeth(yükseklik)
-			->xcor(konum x)
-			->ycor(konum y)
-			->width(uzunluk)
-			->height(yükseklik)
-			->quality(100) // kalite
-			->run();
-
-**/
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
 
 namespace System\Core\Crop;
 

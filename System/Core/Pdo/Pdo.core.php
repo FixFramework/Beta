@@ -1,7 +1,13 @@
 <?php
-
+/*
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
 namespace System\Core\Pdo;
-
 
 use System\Error\FIX_Error;
 use System\Router\FIX_Router as Router;

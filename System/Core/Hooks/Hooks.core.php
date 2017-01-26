@@ -1,6 +1,15 @@
 <?php
-
+/*
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
 namespace System\Core\Hooks;
+
+use System\Router\FIX_Router;
 
 class Hooks
 {
@@ -85,7 +94,9 @@ class Hooks
   /**
    * @param string $Folder
    */
-  public function get_plugins( $Folder  = FIX_APP_DIR.FIX_URL.FIX_SLASH.FIX_APP_HOOKS_DIR ){
+  public function get_plugins( $Folder =  null ){
+
+      $Folder = FIX_Router::appDedection().FIX_SLASH.FIX_APP_HOOKS_DIR.FIX_SLASH;
 
     if ( is_dir( $Folder ) ) {
 

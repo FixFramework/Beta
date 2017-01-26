@@ -1,11 +1,18 @@
 <?php
-
+/*
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
 
 namespace System\Fix;
 
-
 use System\Core\Json\Json;
 use System\Error\FIX_Error;
+use System\Router\FIX_Router;
 
 class Creator
 {
@@ -44,15 +51,15 @@ class Creator
     public static function newApplicationFolderList(){
 
         return [
-            "master" => [FIX_HOME_DIR.FIX_SLASH.FIX_APP_DIR.FIX_URL,0755],
+            "master" => [FIX_Router::appDedection(),0755],
             "child" =>
                 [
-                    [FIX_HOME_DIR.FIX_SLASH.FIX_APP_DIR.FIX_URL.FIX_SLASH."cache",0755],
-                    [FIX_HOME_DIR.FIX_SLASH.FIX_APP_DIR.FIX_URL.FIX_SLASH."controllers",0755],
-                    [FIX_HOME_DIR.FIX_SLASH.FIX_APP_DIR.FIX_URL.FIX_SLASH."hooks",0755],
-                    [FIX_HOME_DIR.FIX_SLASH.FIX_APP_DIR.FIX_URL.FIX_SLASH."models",0755],
-                    [FIX_HOME_DIR.FIX_SLASH.FIX_APP_DIR.FIX_URL.FIX_SLASH."storage",0755],
-                    [FIX_HOME_DIR.FIX_SLASH.FIX_APP_DIR.FIX_URL.FIX_SLASH."views",0755]
+                    [FIX_Router::appDedection().FIX_SLASH."cache",0755],
+                    [FIX_Router::appDedection().FIX_SLASH."controllers",0755],
+                    [FIX_Router::appDedection().FIX_SLASH."hooks",0755],
+                    [FIX_Router::appDedection().FIX_SLASH."models",0755],
+                    [FIX_Router::appDedection().FIX_SLASH."storage",0755],
+                    [FIX_Router::appDedection().FIX_SLASH."views",0755]
                 ]
 
         ];
@@ -145,6 +152,7 @@ class Creator
                                     "charset"   => "utf8"
                         ]
                     ],
+                    "router_url_mode"           => [],
                     "maintenance_mode"          => [],
                     "maintenance_mode_url"      => [],
                     "forbidden"                 => [],
@@ -168,13 +176,11 @@ class Creator
 
         if(is_array($Config)){
 
-         $Custom = file_get_contents(FIX_HOME_DIR.FIX_SLASH.FIX_SYS_DIR."Fix/view/Creator/controller.fix");
+         $Custom = file_get_contents(FIX_HOME_DIR.FIX_SLASH.FIX_SYS_DIR."/Fix/view/Creator/controller.fix");
 
             $Pattern = ["Class_Name","Function_Name"];
             $Replace = [$Config["Class_Name"],$Config["Function_Name"]];
             $Controller_Replace = str_replace($Pattern,$Replace,$Custom);
-
-
             $ConfigFile = fopen($Config["File"], "w") or die("Error Controller File!");
             $Status = fwrite($ConfigFile, $Controller_Replace);
             fclose($ConfigFile);

@@ -1,9 +1,13 @@
 <?php
 /*
-*   Proje : Fix Cms
-*   Autor : Cengiz Akcan
-*   Time  : 13.08.2015 13:44:10
-*/
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
+
 namespace System\Core\Backupdb;
 
 class Backupdb
@@ -49,7 +53,7 @@ class Backupdb
      * @ Params
      * Mysql Db Save File Folder
      * */
-    public $File = FIX_HOME_DIR.FIX_APP_DIR.FIX_URL.FIX_SLASH."storage/";
+    public $File = FIX_HOME_DIR.FIX_APP_DIR. FIX_SLASH.FIX_URL."/storage/";
 
     /*
      *

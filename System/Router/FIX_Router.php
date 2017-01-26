@@ -1,26 +1,33 @@
 <?php
-
+/*
+ * Author  : Fix Framework | Cengiz Akcan
+ * Web     : fixframework.com
+ * Mail    : info@fixframework.com
+ * Docs    : docs.fixframework.com
+ * Version : Beta
+ * Github  : github.com/FixFramework
+ * */
 namespace System\Router;
 
-use System\Core\Header as Header;
+use System\Core\Header;
 use System\Error\FIX_Error;
 use System\Core\Json\Json;
-use System\Fix\Fix;
-use System\Fix\View;
 
 class FIX_Router
 {
 
 
 
-    public static function getConfig($Application = FIX_URL){
+    public static function getConfig($Application = null){
+
+        $Application = self::appDedection(true);
 
         if($Application){
 
-            if(file_exists(FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL.FIX_SLASH. FIX_APP_CONFIG )){
+            if(file_exists(FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_SLASH . $Application .FIX_SLASH. FIX_APP_CONFIG )){
 
-               $mixed =  file_get_contents( FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL.FIX_SLASH. FIX_APP_CONFIG );
-                return (array) Json::validate($mixed);
+               return (array) Json::validate(file_get_contents( FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_SLASH . FIX_SLASH . $Application .FIX_SLASH. FIX_APP_CONFIG ));
+
 
             }else{
 
@@ -40,7 +47,7 @@ class FIX_Router
 
         }else{
 
-            echo FIX_Error::fix()->SystemKernelReportingErrorMessageToDomain()->Run();
+            die(FIX_Error::fix()->SystemKernelReportingErrorMessageToDomain()->Run());
 
         }
 
@@ -52,7 +59,7 @@ class FIX_Router
      */
     public static function detectionurl(){
 
-        if( file_exists( FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL ) ){  return true; } else { return false; }
+        if( file_exists( self::appDedection() ) ){  return true; } else { return false; }
 
     }
 
@@ -61,33 +68,51 @@ class FIX_Router
      */
     public static function detectionurlconfig(){
 
-        if( file_exists( FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_URL.FIX_SLASH. FIX_APP_CONFIG ) ){  return true; } else { return false; }
-
+        if( file_exists( self::appDedection() .FIX_SLASH. FIX_APP_CONFIG ) ){  return true; } else { return false; }
     }
 
+    /**
+     * @param bool $App
+     * @return mixed|string
+     */
+    public static function appDedection($App = false){
 
+        if(FIX_MULTIPLE){
 
+            return $App ? FIX_URL : FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_SLASH . FIX_URL;
 
+        }else{
+
+            return $App ? FIX_STABILE : FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_SLASH . FIX_STABILE;
+
+        }
+
+    }
     /**
      * @return array
      */
     public static function receiver(){
 
-      if(self::systemrequestresponsemethod("CONTROL",self::getConfig()["receiver"]) && self::systemrequestresponsemethod("LOAD",self::getConfig()["receiver"])){
+      if( isset($_GET[self::getConfig()["receiver"]]) || isset($_POST[self::getConfig()["receiver"]]) ){
 
-          return explode( "/" ,
-              filter_var(
-                  rtrim(
-                      self::systemrequestresponsemethod("LOAD",self::getConfig()["receiver"]) , "/"
-                  ),
-                  FILTER_SANITIZE_URL
-              )
-          );
+          if( (isset($_GET[self::getConfig()["receiver"]]) || isset($_POST[self::getConfig()["receiver"]])) && self::systemrequestresponsemethod("CONTROL",self::getConfig()["receiver"]) && self::systemrequestresponsemethod("LOAD",self::getConfig()["receiver"])){
+
+              return explode( "/" ,
+                  filter_var(
+                      rtrim(
+                          self::systemrequestresponsemethod("LOAD",self::getConfig()["receiver"]) , "/"
+                      ),
+                      FILTER_SANITIZE_URL
+                  )
+              );
+
+          }
 
       }
 
-
     }
+
+
 
     public static function systemrequestresponsemethod($EXE = "CONTROL", $PARAM = null){
 
@@ -105,11 +130,11 @@ class FIX_Router
 
         if(
             self::detectionurl() &&
-            array_key_exists( FIX_URL, self::getConfig()["forbidden"])     &&
+            array_key_exists( self::appDedection(true), self::getConfig()["forbidden"])     &&
             $_GET[self::systemrequestresponsemethod("LOAD",self::getConfig()["receiver"])] === self::getConfig()["forbidden"]
         ){
 
-           if(array_key_exists( FIX_URL, self::getConfig()["forbidden_mode_url"])){
+           if(array_key_exists( self::appDedection(true), self::getConfig()["forbidden_mode_url"])){
 
                 Header::location(self::getConfig()["forbidden_mode_url"]);
 
@@ -126,11 +151,11 @@ class FIX_Router
 
         if(
 
-            array_key_exists( FIX_URL, self::getConfig())              &&
-            in_array( FIX_URL, self::getConfig()["maintenance_mode"])  &&
+            array_key_exists( self::appDedection(true), self::getConfig())              &&
+            in_array( self::appDedection(true), self::getConfig()["maintenance_mode"])  &&
             !in_array( $_SERVER["REMOTE_ADDR"],self::getConfig()["maintenance_mode_url"])
 
-        ){ echo  FIX_Error::fix()->SystemMaintenanceReportingToDomain()->Run();  }
+        ){ die(FIX_Error::fix()->SystemMaintenanceReportingToDomain()->Run());  }
 
     }
 
@@ -212,7 +237,7 @@ class FIX_Router
 
         }catch (\Exception $FIX_Error){
 
-            echo json_encode($FIX_Error);
+            die(json_encode($FIX_Error));
 
         }
 
