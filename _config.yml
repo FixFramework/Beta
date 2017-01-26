@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 theme: jekyll-theme-cayman
 
 # Name of your blog (this will show up at the top of your page and in the RSS feed)
@@ -40,7 +39,4 @@ permalink: fix
 paginate: 3
 
 # Exclude metadata and development time dependencies (like Grunt plugins)
-exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
-=======
-theme: jekyll-theme-cayman
->>>>>>> origin/master
+exclude: [README.markdown, package.json]
