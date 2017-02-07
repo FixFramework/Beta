@@ -1,0 +1,55 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+#   (use "git pull" to update your local branch)
+#
+# Changes to be committed:
+#	deleted:    .gitignore
+#	deleted:    .htaccess
+#	deleted:    Applications/.htaccess
+#	deleted:    LICENSE
+#	deleted:    README.md
+#	deleted:    System/Autoloader/FIX_Autoloader.php
+#	deleted:    System/Controller/FIX_Controller.php
+#	deleted:    System/Core/Backupdb/Backupdb.core.php
+#	deleted:    System/Core/Basket/Basket.core.php
+#	deleted:    System/Core/Benchmark/Benchmark.core.php
+#	deleted:    System/Core/Cache/Cache.core.php
+#	deleted:    System/Core/Cookie/Cookie.core.php
+#	deleted:    System/Core/Crop/Crop.core.php
+#	deleted:    System/Core/Crypto/Crypto.core.php
+#	deleted:    System/Core/Curl/Curl.php
+#	deleted:    System/Core/Header/Header.core.php
+#	deleted:    System/Core/Hidestring/Hidestring.php
+#	deleted:    System/Core/Hooks/Hooks.core.php
+#	deleted:    System/Core/Json/Json.core.php
+#	deleted:    System/Core/Language/Language.core.php
+#	deleted:    System/Core/Model/Model.core.php
+#	deleted:    System/Core/Parsedown/Parsedown.core.php
+#	deleted:    System/Core/Pdo/Pdo.core.php
+#	deleted:    System/Core/Permatext/Permatext.php
+#	deleted:    System/Core/Session/Session.core.php
+#	deleted:    System/Core/Sms/Sms.core.php
+#	deleted:    System/Core/Stringlimit/Stringlimit.php
+#	deleted:    System/Core/View/View.core.php
+#	deleted:    System/Error/FIX_Error.php
+#	deleted:    System/Fix/Creator.php
+#	deleted:    System/Fix/Fix.php
+#	deleted:    System/Fix/View.php
+#	deleted:    System/Fix/view/Creator/Index.php
+#	deleted:    System/Fix/view/Creator/controller.fix
+#	deleted:    System/Fix/view/Fix/Fix.php
+#	deleted:    System/Kernel/FIX_Kernel.php
+#	deleted:    System/Router/FIX_Router.php
+#	deleted:    System/index.php
+#	deleted:    _config.yml
+#	deleted:    composer.json
+#	deleted:    index.php
+#	deleted:    robots.txt
+#
+# Untracked files:
+#	qefscra2.bdc.txt
+#
+
