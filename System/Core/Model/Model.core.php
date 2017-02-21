@@ -10,6 +10,7 @@
 namespace System\Core\Model;
 
 use System\Error\FIX_Error;
+use System\Router\FIX_Router;
 
 class Model
 {
@@ -22,13 +23,15 @@ class Model
      */
     public static function get($Model = null, $Application = null){
 
-        $Application ? $Application = $Application: $Application = FIX_URL;
+        $Application ? $Application = $Application: $Application = FIX_Router::appDedection();
 
-        if(file_exists( FIX_APP_DIR . FIX_SLASH . $Application . FIX_SLASH . FIX_APP_MODEL_DIR. FIX_SLASH . $Model . FIX_CORE_EXTENSIONS )){
+        if(file_exists( $Application . FIX_SLASH . FIX_APP_MODEL_DIR. FIX_SLASH . $Model . FIX_CORE_EXTENSIONS )){
 
-            include( FIX_APP_DIR . FIX_SLASH . $Application . FIX_SLASH . FIX_APP_MODEL_DIR. FIX_SLASH . $Model . FIX_CORE_EXTENSIONS );
+            include( $Application . FIX_SLASH . FIX_APP_MODEL_DIR. FIX_SLASH . $Model . FIX_CORE_EXTENSIONS );
 
             return new $Model();
+
+
 
         }else { die(FIX_Error::fix()->SystemModelExtensionError($Application. " Non Application Or Model")->Run()); }
 
