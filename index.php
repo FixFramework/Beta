@@ -24,7 +24,7 @@
     define("FIX_DIR", str_replace("\\","/", dirname(__FILE__)), true);
 
     /* System Application Dir */
-    define("FIX_HOME_DIR",$_SERVER['DOCUMENT_ROOT']);
+    define("FIX_HOME_DIR",dirname( __FILE__ ));
 
     /* System Running Ip */
     define("FIX_IP", $_SERVER["REMOTE_ADDR"]);
