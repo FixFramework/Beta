@@ -41,6 +41,9 @@
     /* Php Black */
     define("FIX_EOL", " ");
 
+    /* App Upload Folder */
+    define("FIX_UPLOAD_FOLDER", "storage");
+
     /* System Version */
     define("FIX_VERSION","Fix Framework - Beta");
 
@@ -48,13 +51,19 @@
     define("FIX_CREATOR",true);
 
     /* System Application Creator Access IP */
-    define("FIX_CREATOR_IP","::1");
+    define("FIX_CREATOR_IP","127.0.0.1");
 
     /* System Application Multi true | false */
-    define("FIX_MULTIPLE",false);
+    define("FIX_MULTIPLE",true);
 
     /* System Application Stabile Folder */
     define("FIX_STABILE","www");
+
+    /* System Application AutoLoad Vendor */
+    define("FIX_VENDOR",false);
+
+    /* System Application AutoLoad Vendor */
+    define("FIX_VENDOR_FILE","vendor/autoload.php");
 
     /* Fix Slash Char */
     define("FIX_SLASH","/");
@@ -99,7 +108,7 @@
     define("FIX_CACHE_URL","cache");
 
     /* include Settings */
-    require_once "System/Autoloader/FIX_Autoloader.php";
+    require_once FIX_HOME_DIR."/System/Autoloader/FIX_Autoloader.php";
 
     /* Running System KERNEL */
     new System\Kernel\FIX_Kernel();

@@ -8,21 +8,16 @@
  * Github  : github.com/FixFramework
  * */
 
-
 error_reporting(0);
 
+## System Error Report Render
+function shutdown(){  return error_get_last() ?  die(json_encode(error_get_last())) : null; }
 
-function shutdown(){
+## Auto Vendor Include Query
+FIX_VENDOR ? file_exists(FIX_HOME_DIR.FIX_SLASH.FIX_VENDOR_FILE) ? include(FIX_HOME_DIR.FIX_SLASH.FIX_VENDOR_FILE) : die(json_encode(["title" => "System Not Found Vendor (autoload.php) Folder and File."])) : null;
 
-    if ($error = error_get_last()) { echo json_encode($error); }
-
-}
-
-
-/**
- * @param $className
- */
-function autoload($className){
+## @param $className
+function autoload($className = null){
 
     $className        =  str_replace("\\","/",$className);
 
@@ -43,18 +38,20 @@ function autoload($className){
         }
 
 
-    }catch (\Exception $FIX_Error){ echo json_encode($FIX_Error); }
+    }catch (\Exception $FIX_Error){
+
+        die(json_encode($FIX_Error));
+
+    }
 
 }
 
 try{
 
-
     set_include_path( get_include_path() . PATH_SEPARATOR . PATH_SEPARATOR  );
     spl_autoload_extensions( '.php,.core.php' );
-    spl_autoload_register('autoload');
+    spl_autoload_register( 'autoload' );
+    register_shutdown_function( 'shutdown' );
 
-    register_shutdown_function('shutdown');
-
-} catch(\Exception $FIX_Error){  echo json_encode($FIX_Error); }
+} catch(\Exception $FIX_Error){ die(json_encode($FIX_Error)); }
 

@@ -27,7 +27,6 @@ class FIX_Router
 
                return (array) Json::validate(file_get_contents( FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_SLASH . FIX_SLASH . $Application .FIX_SLASH. FIX_APP_CONFIG ));
 
-
             }else{
 
                 return false;
@@ -85,6 +84,15 @@ class FIX_Router
             return $App ? FIX_STABILE : FIX_HOME_DIR . FIX_SLASH .FIX_APP_DIR . FIX_SLASH . FIX_STABILE;
 
         }
+
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public static function appMultipleStatus(){
+
+        return FIX_MULTIPLE ? FIX_URL : FIX_STABILE;
 
     }
 
