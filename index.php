@@ -48,13 +48,13 @@
     define("FIX_VERSION","Fix Framework - Beta");
 
     /* System Application Creator true | false */
-    define("FIX_CREATOR",true);
+    define("FIX_CREATOR",false);
 
     /* System Application Creator Access IP */
-    define("FIX_CREATOR_IP","127.0.0.1");
+    define("FIX_CREATOR_IP","0.0.0.0");
 
     /* System Application Multi true | false */
-    define("FIX_MULTIPLE",true);
+    define("FIX_MULTIPLE",false);
 
     /* System Application Stabile Folder */
     define("FIX_STABILE","www");
