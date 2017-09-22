@@ -18,6 +18,10 @@ use System\Fix\Fix;
 class FIX_Router
 {
 
+    /**
+     * @param null $Application
+     * @return array|bool
+     */
     public static function getConfig($Application = null){
 
         $Application = self::appDedection(true);
@@ -244,6 +248,14 @@ class FIX_Router
 
     }
 
+    /**
+     * @return bool
+     */
+    public static function subDomain(){
+
+        return isset($_GET["subdomain"]) ? $_GET["subdomain"] : false;
+
+    }
 
     /*
      * System Run

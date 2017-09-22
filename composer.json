@@ -12,6 +12,12 @@
             "email": "info@cengizakcan.com",
             "homepage": "http://www.cengizakcan.com",
             "role": "Core Developer and Founder"
+        },
+        {
+            "name": "Samed Özoğlu",
+            "email": "info@samedozoglu.com.tr",
+            "homepage": "http://www.samedozoglu.com.tr",
+            "role": "Server Development"
         }
     ],
     "minimum-stability": "dev",
