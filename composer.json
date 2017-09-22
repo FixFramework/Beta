@@ -23,11 +23,5 @@
     "config": {
         "vendor-dir": "System/Vendor"
     },
-    "optimize-autoloader": true,
-    "require": {
-        "phpexcel/phpexcel": "dev-master",
-        "zendframework/zend-barcode": "^2.6@dev",
-        "knplabs/knp-snappy": "^0.6.0@dev",
-        "php-curl-class/php-curl-class": "dev-master"
-    }
+    "optimize-autoloader": true
 }
