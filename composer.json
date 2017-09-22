@@ -1,23 +1,33 @@
 {
-  "name": "fixframework/beta",
-  "type": "project",
-  "description": "Fix Framework",
-  "keywords": ["fix","framework"],
-  "homepage": "https://fixframework.com/",
-  "license": "MIT",
-  "authors":
-  [
-    {
-      "name": "Cengiz Akcan",
-      "email": "info@cengizakcan.com",
-      "homepage": "http://www.cengizakcan.com",
-      "role": "Core Developer and Founder"
+    "name": "fixframework/beta",
+    "type": "project",
+    "description": "Fix Framework",
+    "keywords": ["fix","framework"],
+    "homepage": "https://fixframework.com/",
+    "license": "MIT",
+    "authors":
+    [
+        {
+            "name": "Cengiz Akcan",
+            "email": "info@cengizakcan.com",
+            "homepage": "http://www.cengizakcan.com",
+            "role": "Core Developer and Founder"
+        }
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "vendor-dir": "System/Vendor"
+    },
+    "optimize-autoloader": true,
+    "require": {
+        "phpexcel/phpexcel": "dev-master",
+        "zendframework/zend-barcode": "^2.6@dev",
+        "knplabs/knp-snappy": "^0.6.0@dev",
+        "php-curl-class/php-curl-class": "dev-master"
     }
-  ],
-  "minimum-stability": "dev",
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.0-dev"
-    }
-  }
 }

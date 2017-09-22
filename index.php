@@ -48,22 +48,22 @@
     define("FIX_VERSION","Fix Framework - Beta");
 
     /* System Application Creator true | false */
-    define("FIX_CREATOR",false);
+    define("FIX_CREATOR",true);
 
     /* System Application Creator Access IP */
-    define("FIX_CREATOR_IP","0.0.0.0");
+    define("FIX_CREATOR_IP","127.0.0.1");
 
     /* System Application Multi true | false */
-    define("FIX_MULTIPLE",false);
+    define("FIX_MULTIPLE",true);
 
     /* System Application Stabile Folder */
     define("FIX_STABILE","www");
 
     /* System Application AutoLoad Vendor */
-    define("FIX_VENDOR",false);
+    define("FIX_VENDOR",true);
 
     /* System Application AutoLoad Vendor */
-    define("FIX_VENDOR_FILE","vendor/autoload.php");
+    define("FIX_VENDOR_FILE","System/Vendor/autoload.php");
 
     /* Fix Slash Char */
     define("FIX_SLASH","/");
