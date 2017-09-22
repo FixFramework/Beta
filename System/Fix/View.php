@@ -7,8 +7,9 @@
  * Version : Beta
  * Github  : github.com/FixFramework
  * */
-namespace System\Fix;
 
+
+namespace System\Fix;
 
 class View
 {
@@ -28,7 +29,6 @@ class View
         } else { return false; }
 
     }
-
 
 
 }

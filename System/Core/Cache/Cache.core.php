@@ -47,7 +47,7 @@ class Cache
     private static function convertToObject($data)
     {
         // define new class
-        $obj = new stdclass();
+        $obj = new \stdclass();
         // data is an object
         if (is_object($data)) {
             // loop data
@@ -125,7 +125,7 @@ class Cache
         // cache path not defined
         if (!isset(self::$cache['path'])) {
             // redefine cache path to default path
-            self::setCachePath(FIX_Router::appDedection().FIX_CACHE_URL);
+            self::setCachePath(str_replace("\\","/",FIX_HOME_DIR.FIX_SLASH.FIX_APP_DIR.FIX_SLASH.FIX_Router::appMultipleStatus().FIX_SLASH.FIX_CACHE_URL.FIX_SLASH));
         }
         return self::$cache['path'];
     }

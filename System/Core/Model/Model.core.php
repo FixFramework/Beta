@@ -21,7 +21,7 @@ class Model
      * @param null $Application
      * @return bool
      */
-    public static function get($Model = null, $Application = null){
+    public static function get($Model = null, $Master = null, $Application = null){
 
         $Application ? $Application = $Application: $Application = FIX_Router::appDedection();
 
@@ -29,7 +29,7 @@ class Model
 
             include( $Application . FIX_SLASH . FIX_APP_MODEL_DIR. FIX_SLASH . $Model . FIX_CORE_EXTENSIONS );
 
-            return new $Model();
+            return new $Model($Master);
 
 
 

@@ -25,6 +25,9 @@ class Pdo
     public static $_setdata;
     public static $_wheredata;
     public static $_indata;
+    public static $_Progress    = "other";
+    public static $_Single      = true;
+    public static $_Multiple    = false;
 
 
 
@@ -115,7 +118,8 @@ class Pdo
      */
     public function manuel($query = "", array $data = []){
 
-        return $this->connect();
+        self::$_query = $query;
+        return $this;
 
     }
 
@@ -237,7 +241,7 @@ class Pdo
      */
     public function orderby($columname = null, $sort = "ASC"){
 
-        self::$_query .= "ORDER BY".FIX_EOL.$columname.FIX_EOL.$sort;
+        self::$_query .= " ORDER BY".FIX_EOL.$columname.FIX_EOL.$sort;
         return $this;
 
 
@@ -316,7 +320,6 @@ class Pdo
 
         if(self::$_query !== ""){
 
-
             if(is_array(self::$_wheredata) or is_array(self::$_setdata)){
 
                 $sql = $this->connect()->prepare(self::$_query);
@@ -326,24 +329,31 @@ class Pdo
                 $sql = $this->connect()->query(self::$_query);
             }
 
-
             if( count(array_merge($array1,$array2,$array3)) > 0 ){
 
                 $sql->execute(array_merge($array1,array_merge($array2,$array3)));
 
             }
 
-            if($single){
+            self::$_indata      = null;
+            self::$_wheredata   = null;
+            self::$_setdata     = null;
 
-                $Export = $sql->fetch(\PDO::FETCH_ASSOC);
+            if ($single === "other"){
 
-            }else{
+                return $sql;
 
-                $Export = $sql->fetchAll(\PDO::FETCH_ASSOC);
+            } else if($single){
+
+                return $sql->fetch(\PDO::FETCH_ASSOC);
+
+            } else{
+
+                return $sql->fetchAll(\PDO::FETCH_ASSOC);
 
             }
 
-            return $Export;
+
 
         }
 

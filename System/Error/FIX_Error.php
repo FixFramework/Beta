@@ -311,6 +311,27 @@ class FIX_Error
 
     }
 
+
+    /**
+     * @param array ...$Custom
+     * @return $this
+     */
+    public function Custom(...$Custom){
+
+        $this->SystemReportigTemplate(
+            [
+                $Custom[0],
+                $Custom[1],
+                $Custom[2],
+                FIX_URL,
+                $Custom[3]
+            ]
+        );
+        return $this;
+
+
+    }
+
     /**
      * @return $this
      */

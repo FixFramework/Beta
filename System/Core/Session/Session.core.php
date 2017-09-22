@@ -18,7 +18,7 @@ class Session
      */
     public static function start(){
 
-        return session_start();
+        return session_start(); ob_start();
 
     }
 
@@ -28,6 +28,15 @@ class Session
     public static function finish(){
 
         return session_destroy();
+
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isSession($_PARAMS = null){
+
+        return isset($_SESSION[$_PARAMS]);
 
     }
 

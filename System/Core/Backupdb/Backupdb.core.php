@@ -164,7 +164,7 @@ class Backupdb
      * */
     public function run()
     {
-        $mysqli = new mysqli($this->Host,$this->Username,$this->Password,$this->Dbname);
+        $mysqli = new \mysqli($this->Host,$this->Username,$this->Password,$this->Dbname);
         $mysqli->select_db($this->Dbname);
         $mysqli->query("SET NAMES 'utf8'");
 

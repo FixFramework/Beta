@@ -10,6 +10,7 @@
 namespace System\Core\View;
 
 
+use System\Error\FIX_Error;
 use System\Router\FIX_Router;
 
 class View
@@ -31,7 +32,7 @@ class View
 
             include( FIX_APP_DIR . FIX_SLASH . $Application . FIX_SLASH . FIX_APP_VIEWS_DIR. FIX_SLASH . $View . FIX_CORE_EXTENSIONS );
 
-        } else { return false;  }
+        } else { die(FIX_Error::fix()->Custom("View","Not Found ( ".$View." ) View File","404","error")->run()); }
 
     }
 

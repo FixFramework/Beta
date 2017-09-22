@@ -7,6 +7,7 @@
  * Version : Beta
  * Github  : github.com/FixFramework
  * */
+
 namespace System\Kernel;
 
 use System\Error\FIX_Error;
@@ -17,6 +18,8 @@ class FIX_Kernel
 {
 
     public function __construct(){
+
+        date_default_timezone_set('Europe/Istanbul');
 
         if( FIX_Router::detectionurl() ){
 

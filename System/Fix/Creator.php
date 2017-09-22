@@ -160,7 +160,7 @@ class Creator
 
             ];
 
-            return json_encode($Custom);
+            return json_encode($Custom,JSON_PRETTY_PRINT);
 
         }
 

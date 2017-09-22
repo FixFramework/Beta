@@ -6,6 +6,7 @@
  * Docs    : docs.fixframework.com
  * Version : Beta
  * Github  : github.com/FixFramework
+ * Creator : Class_Name in Function_Name
  * */
 
 use System\Fix\Fix;
@@ -13,7 +14,7 @@ use System\Fix\Fix;
 class Class_Name
 {
 
-	public function Class_Name(){
+	public function __construct(){
 
       // This is function __construct();
 

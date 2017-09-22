@@ -51,6 +51,28 @@ class Hooks
   }
 
 
+    /**
+     * @param null $View
+     * @param array $data
+     * @param null $Application
+     * @return bool
+     */
+    public static function render($View = null, array $data = [], $Application = null){
+
+        $Application ? $Application = $Application: $Application = FIX_Router::appMultipleStatus();
+
+        if(file_exists( FIX_APP_DIR . FIX_SLASH . $Application . FIX_SLASH . FIX_APP_HOOKS_DIR.FIX_SLASH.FIX_APP_VIEWS_DIR. FIX_SLASH . $View . FIX_CORE_EXTENSIONS )){
+
+            extract($data);
+
+            include( FIX_APP_DIR . FIX_SLASH . $Application . FIX_SLASH . FIX_APP_HOOKS_DIR.FIX_SLASH.FIX_APP_VIEWS_DIR. FIX_SLASH . $View . FIX_CORE_EXTENSIONS );
+
+        } else { return false;  }
+
+    }
+
+
+
   /**
    * @param null $Action
    * @param null $Function
@@ -91,36 +113,34 @@ class Hooks
   }
 
 
-  /**
-   * @param string $Folder
-   */
-  public function get_plugins( $Folder =  null ){
+    /**
+     * @param null $Folder
+     */
+    public function get_plugins($Folder =  null ){
 
       $Folder = FIX_Router::appDedection().FIX_SLASH.FIX_APP_HOOKS_DIR.FIX_SLASH;
 
-    if ( is_dir( $Folder ) ) {
+        if ( is_dir( $Folder ) ) {
 
-      if ( $List = opendir( $Folder ) ) {
+          if ( $List = opendir( $Folder ) ) {
 
-        while ( ( $File = readdir( $List ) ) !== false ) {
+            while ( ( $File = readdir( $List ) ) !== false ) {
 
-          $Files = str_replace("..","",str_replace(".php","",$File));
+              $Files = str_replace("..","",str_replace(".php","",$File));
 
-          if( is_file( $Folder.$Files.FIX_SLASH.$Files.FIX_CORE_EXTENSIONS ) ){
+              if( is_file( $Folder.$Files.FIX_SLASH.$Files.FIX_CORE_EXTENSIONS ) ){
 
+                self::$_list[$Files][]  = [ $File, str_replace("\\","/",$Folder), str_replace("\\","/",$Folder.$File.FIX_SLASH.$File.FIX_CORE_EXTENSIONS),$Files.FIX_CORE_EXTENSIONS];
 
-            self::$_list[$Files][]  = [ $File, $Folder, $Folder.$File.FIX_SLASH.$File.FIX_CORE_EXTENSIONS,$Files.FIX_CORE_EXTENSIONS];
+              }
+
+            }
+
+            closedir( $List );
 
           }
 
-
         }
-
-        closedir( $List );
-
-      }
-
-    }
 
   }
 
@@ -129,9 +149,6 @@ class Hooks
    * @param array|null $List
    */
   public function run_plugins(array $List = null){
-
-    $this->get_plugins();
-
 
     foreach($List as $Start){
 
@@ -151,11 +168,12 @@ class Hooks
   }
 
 
-  /**
-   * @param string $par
-   * @param array $Params
-   */
-  public function do_action($par  = "",$Params = []){
+    /**
+     * @param string $par
+     * @param array $Params
+     * @return bool
+     */
+    public function do_action($par  = "", $Params = []){
 
     if(isset(self::$_function[$par])){
 
@@ -170,6 +188,8 @@ class Hooks
       }
 
     }
+
+    return false;
 
   }
 

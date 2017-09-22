@@ -19,7 +19,6 @@ class Sms
     public $title           = "";
     public $text            = "";
     public $numbers         = array();
-    public $numbersexp      = array();
     public $date            = "";
     public $xml             = "";
     public $url             = "";
@@ -42,14 +41,18 @@ class Sms
      */
     public function url($url = "send"){
 
-        if($url == "send"){
+        if($url === "send"){
 
             $this->url =   "http://api.iletimerkezi.com/v1/send-sms";
 
         }
-        else if ($url = "status"){
+        else if ($url === "status"){
 
             $this->url = "http://api.iletimerkezi.com/v1/get-balance";
+        }
+        else if ($url === "order"){
+
+            $this->url = "https://api.iletimerkezi.com/v1/get-report";
         }
 
         return $this;
@@ -185,6 +188,29 @@ EOS;
          <username>{$this->username}</username>
          <password>{$this->password}</password>
      </authentication>
+</request>
+EOS;
+        return $this;
+
+    }
+    /**
+     * @return $this
+     */
+    public function order($_Order = null){
+
+        $this->xml =  <<<EOS
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<request>
+        <authentication>
+                <username>{$this->username}</username>
+                <password>{$this->password}</password>
+        </authentication>
+        <order>
+<id>{$_Order}</id>
+<page>1</page>
+<rowCount>5</rowCount>
+        </order>
 </request>
 EOS;
         return $this;

@@ -13,6 +13,7 @@ namespace System\Router;
 use System\Core\Header\Header;
 use System\Error\FIX_Error;
 use System\Core\Json\Json;
+use System\Fix\Fix;
 
 class FIX_Router
 {
@@ -163,15 +164,15 @@ class FIX_Router
      * */
     public static function maintenancecontrol(){
 
-        if(is_array(is_array(self::getConfig()["forbidden"]))) {
+        if(self::getConfig()["maintenance_mode"]) {
 
             if (
-                count(self::receiver()) > 0 &&
-                in_array(self::systemrequestresponsemethod("LOAD", self::getConfig()["receiver"]), self::getConfig()["maintenance_mode"]) &&
+                ( in_array("system", self::getConfig()["maintenance_mode"]) || in_array(self::systemrequestresponsemethod("LOAD", self::getConfig()["receiver"]), self::getConfig()["maintenance_mode"]) ) &&
                 !in_array($_SERVER["REMOTE_ADDR"], self::getConfig()["maintenance_mode_ip"])
 
             ) {
-                die(FIX_Error::fix()->SystemMaintenanceReportingToDomain()->Run());
+                //die(FIX_Error::fix()->SystemMaintenanceReportingToDomain()->Run());
+                die(Fix::maintenance());
             }
 
         }
@@ -249,16 +250,9 @@ class FIX_Router
      * */
     public static function run(){
 
-        try{
-
             self::maintenancecontrol();
             self::urlforbiddendcontrol();
 
-        }catch (\Exception $FIX_Error){
-
-            die(FIX_Error::fix()->SystemErrorMessage($FIX_Error->getMessage())->Run());
-
-        }
 
     }
 
