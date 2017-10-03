@@ -13,6 +13,7 @@ namespace System\Kernel;
 use System\Error\FIX_Error;
 use System\Fix\Fix;
 use System\Router\FIX_Router;
+use System\Console\FIX_Console;
 
 class FIX_Kernel
 {
@@ -20,6 +21,8 @@ class FIX_Kernel
     public function __construct(){
 
         date_default_timezone_set('Europe/Istanbul');
+
+        FIX_Console::run();
 
         if( FIX_Router::detectionurl() ){
 

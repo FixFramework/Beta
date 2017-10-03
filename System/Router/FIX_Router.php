@@ -14,6 +14,7 @@ use System\Core\Header\Header;
 use System\Error\FIX_Error;
 use System\Core\Json\Json;
 use System\Fix\Fix;
+use System\Console;
 
 class FIX_Router
 {
@@ -56,15 +57,15 @@ class FIX_Router
 
     }
 
-
     /**
      * @return bool
      */
     public static function detectionurl(){
 
-        if( file_exists( self::appDedection() ) ){  return true; } else { return false; }
+        return file_exists( self::appDedection() ) ?  true :  false;
 
     }
+
 
     /**
      * @return bool
