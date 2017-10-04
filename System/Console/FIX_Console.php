@@ -30,7 +30,7 @@ class FIX_Console
      */
     private static function controlCommands($args){
 
-        $Memory__ = new FIX_ConsoleMemory();
+        $Memory__ = new FIX_Memory();
 
         $Function__ = $args[1];
 

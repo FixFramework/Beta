@@ -30,11 +30,11 @@
     define('FIX_WIN',                   strpos(PHP_OS, 'WIN') !== false);
     define("FIX_SP",                    DIRECTORY_SEPARATOR);
     define("FIX_DIR",                   str_replace("\\","/", dirname(__FILE__)), true);
-    define("FIX_HOME_DIR",              dirname( __FILE__ ));
+    define("FIX_HOME_DIR",              str_replace("\\","/", dirname(__FILE__)), true);
     define("FIX_IP",                    isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : "0.0.0.0");
     define("FIX_PROTOCOL",              isset($_SERVER["HTTPS"]) ? 'https://' : 'http://' );
     define("FIX_URL",                   isset($_SERVER["SERVER_NAME"]) ? $_SERVER["SERVER_NAME"] : "console");
-    define("FIX_EOL",                   " ");
+    define("FIX_EOL",                   "\r\n");
     define("FIX_UPLOAD_FOLDER",         "storage");
     define("FIX_VERSION",               "Fix Framework - Beta");
     define("FIX_CREATOR",               true);
