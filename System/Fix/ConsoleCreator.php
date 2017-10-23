@@ -191,6 +191,31 @@ class ConsoleCreator
 
     }
 
+    /**
+     * @param array $Config
+     * @return int
+     */
+    public static function CreateModelFileWrite(array $Config = []){
+
+        if(is_array($Config)){
+
+         $Custom = file_get_contents(FIX_HOME_DIR.FIX_SLASH.FIX_SYS_DIR."/Fix/view/Creator/model.fix");
+
+            $Pattern = ["Class_Name"];
+            $Replace = [$Config["Class_Name"]];
+            $Controller_Replace = str_replace($Pattern,$Replace,$Custom);
+            $ConfigFile = fopen($Config["File"], "w") or die("Error Controller File!");
+            $Status = fwrite($ConfigFile, $Controller_Replace);
+            fclose($ConfigFile);
+
+            return $Status;
+
+
+        }
+
+
+    }
+
 
     /**
      * @param array $Config

@@ -30,7 +30,9 @@ class FIX_Console
      */
     private static function controlCommands($args){
 
-        $Memory__ = new FIX_Memory();
+        count($args) >! 0 ? exit("php fix help | Komutunu yazını.") : null;
+
+        $Memory__   = new FIX_Memory($args);
 
         $Function__ = $args[1];
 
